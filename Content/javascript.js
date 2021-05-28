@@ -14,8 +14,28 @@ function eventListeners() { //All eventListeners
 
 function addTodo(e) {
     const newTodo = todoInput.value.trim();
-    addTodoUI(newTodo);
+    if (newTodo === "") {
+        /*
+         <div class="alert alert-danger" role="alert">
+                    <strong>Bu toDo zaten mevcut</strong>
+                </div>
+        */
+        showAlert("danger", "lütfen bir todo giriniz");
+    } else {
+        showAlert("success", "todo başarıyla eklendi");
+        addTodoUI(newTodo);
+    }
+
     e.preventDefault();
+}
+
+function showAlert(type, message) {
+    const alert = document.createElement("div");
+    alert.className = `alert alert-${type}`
+    alert.textContent = message;
+
+    firstCardBody.appendChild(alert);
+    window.setTimeout(function() { alert.remove(); }, 1000)
 }
 
 function addTodoUI(newTodo) { //this string value will be add the UI
