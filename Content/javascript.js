@@ -2,7 +2,7 @@ const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo");
 const todoList = document.querySelector(".list-group");
 const firstCardBody = document.querySelector(".card-body");
-const secondCardBody = document.querySelector(".card-body")[1];
+const secondCardBody = document.querySelectorAll(".card-body")[1];
 const filter = document.querySelector("#filter");
 const clearButton = document.querySelector("#clear-todos");
 
@@ -10,24 +10,53 @@ eventListeners();
 
 function eventListeners() { //All eventListeners
     form.addEventListener("submit", addTodo);
+    document.addEventListener("DOMContentLoaded", loadAllTodosUI);
+    secondCardBody.addEventListener("click", deleteTodo);
+}
+
+function deleteTodo(e) {
+    if (e.target.className === "fa fa-remove") {
+        e.target.parentElement.parentElement.remove();
+        showAlert("success", "Todo başarıyla silindi")
+
+    }
+}
+
+function loadAllTodosUI() {
+    let todos = getTodoFromStorage();
+    todos.forEach(function(todo) {
+        addTodoUI(todo);
+    })
 }
 
 function addTodo(e) {
     const newTodo = todoInput.value.trim();
     if (newTodo === "") {
-        /*
-         <div class="alert alert-danger" role="alert">
-                    <strong>Bu toDo zaten mevcut</strong>
-                </div>
-        */
         showAlert("danger", "lütfen bir todo giriniz");
     } else {
-        showAlert("success", "todo başarıyla eklendi");
         addTodoUI(newTodo);
+        addTodoStorage(newTodo);
+        showAlert("success", "todo başarıyla eklendi");
     }
-
     e.preventDefault();
 }
+
+function getTodoFromStorage() {
+    let todos;
+    if (localStorage.getItem("todos") === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    return todos;
+}
+
+function addTodoStorage(newTodo) {
+    let todos = getTodoFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem("todos", JSON.stringify(todos));
+}
+
 
 function showAlert(type, message) {
     const alert = document.createElement("div");
@@ -38,16 +67,7 @@ function showAlert(type, message) {
     window.setTimeout(function() { alert.remove(); }, 1000)
 }
 
-function addTodoUI(newTodo) { //this string value will be add the UI
-    /*
-     <li class="list-group-item d-flex justify-content-between">
-                            Todo 1
-                            <a href = "#" class ="delete-item">
-                                <i class = "fa fa-remove"></i>
-                            </a>
-
-                        </li>
-                        */
+function addTodoUI(newTodo) {
     //List Item create
     const listItem = document.createElement("li");
     //Link create
