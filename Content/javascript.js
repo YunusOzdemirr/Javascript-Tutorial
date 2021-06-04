@@ -24,7 +24,7 @@ function deleteTodo(e) {
 }
 
 function deleteTodoFromStorage(deleteTodo) {
-    let todos = getTodoFromStorage();
+    let todos = getdasdTodoFromStorage();
     todos.forEach(function(todo, index) {
         if (todo === deleteTodo) {
             todos.splice(index, 1);
