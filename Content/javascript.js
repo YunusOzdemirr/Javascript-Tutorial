@@ -11,7 +11,7 @@ eventListeners();
 function eventListeners() { //All eventListeners
     form.addEventListener("submit", addTodo);
     document.addEventListener("DOMContentLoaded", loadAllTodosUI);
-    secondCardBody.addEventListener("click", deleteTodo);
+    secondCardBodye.addEventListener("click", deleteTodo);
 }
 
 function deleteTodo(e) {
@@ -20,7 +20,6 @@ function deleteTodo(e) {
         deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
 
         showAlert("success", "Todo başarıyla silindi")
-
     }
 }
 
