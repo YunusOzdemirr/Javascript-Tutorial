@@ -12,6 +12,18 @@ function eventListeners() { //All eventListeners
     form.addEventListener("submit", addTodo);
     document.addEventListener("DOMContentLoaded", loadAllTodosUI);
     secondCardBodye.addEventListener("click", deleteTodo);
+    clearButton.addEventListener("click", clearAllTodos);
+}
+
+function clearAllTodos() {
+    //Arayüzden todoları temizleme
+    if (confirm("Tümünü silmek istediğinize emin misiniz")) {
+        todoList.innerHTML = "";
+        while (todoList.firstElementChild != null) {
+            todoList.removeChild(todoList.firstElementChild);
+        }
+        localStorage.removeItem("todos");
+    }
 }
 
 function deleteTodo(e) {
