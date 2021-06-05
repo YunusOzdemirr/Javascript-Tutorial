@@ -30,5 +30,5 @@ Employee.prototype.showInfos = function() {
 const emp = new Employee("Mustafa", 25, 4000);
 
 // console.log(emp);
-emp.showInfos();
+// emp.showInfos();
 // emp.toString();
