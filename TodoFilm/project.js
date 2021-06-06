@@ -19,9 +19,11 @@ function addFilm(e) {
     const url = urlElement.value;
     if (title === "" || director === "" || url === "") {
         //Hata
+        ui.displayMessages("Tüm alanları doldurunuz.", "danger")
     } else {
         const newFilm = new Film(title, director, url);
         ui.addFilmToUI(newFilm);
+        ui.displayMessages("Film başarıyla eklendi...", "success");
     }
     ui.clearInputs(titleElement, urlElement, directorElement);
     e.preventDefault();
